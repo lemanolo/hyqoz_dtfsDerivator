@@ -1,3 +1,18 @@
+derive_dtfs_from_java(TYPES,DTFS):-
+       sco(SCO),
+       derive(sco(SCO),DTFS),
+       findall(type_name(Name,S::M),type_name(Name,S::M),TYPES),
+       ( outputFileName(OutputFileName),OutputFileName\=none -> (open(OutputFileName, write, OUTPUT_STREAM),
+                                                                 nl,write('Writing the derivation result to the file '),write(OutputFileName),nl,
+                                                                 set_output(OUTPUT_STREAM),
+                                                                 nl,write('TYPES: '),write(TYPES),
+                                                                 nl,write(' DTFS: '),write(DTFS),
+                                                                 close(OUTPUT_STREAM),
+                                                                 set_output(user_output)
+                                                                )
+                                                      ; (OUTPUT_STREAM=user_output)
+       ).
+
 derive_dtfs:-
        sco(SCO),
        derive(sco(SCO),DTFS),
